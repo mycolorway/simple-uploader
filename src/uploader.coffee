@@ -117,7 +117,7 @@ class Uploader extends Module
         @trigger 'uploadprogress', [file, file.size, file.size]
         @trigger 'uploadsuccess', [file, result]
       complete: (xhr, status) =>
-        @trigger 'uploadcomplete', [file, $.parseJSON(xhr.responseText)]
+        @trigger 'uploadcomplete', [file, xhr.responseText]
 
   iframeUpload: (file) ->
     file.iframe = $('iframe', {
