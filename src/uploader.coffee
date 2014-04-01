@@ -72,7 +72,7 @@ class Uploader extends Module
     @uploading = true
 
   getFile: (fileObj) ->
-    if fileObj instanceof window.File
+    if fileObj instanceof window.File or fileObj instanceof window.Blob
       name = fileObj.fileName ? fileObj.name
     else if $(fileObj).is('input:file')
       name = $input.val().replace(/.*(\/|\\)/, "")
@@ -117,7 +117,7 @@ class Uploader extends Module
         @trigger 'uploadprogress', [file, file.size, file.size]
         @trigger 'uploadsuccess', [file, result]
       complete: (xhr, status) =>
-        @trigger 'uploadcomplete', [file, $.parseJSON(xhr.responseText)]
+        @trigger 'uploadcomplete', [file, xhr.responseText]
 
   iframeUpload: (file) ->
     file.iframe = $('iframe', {
