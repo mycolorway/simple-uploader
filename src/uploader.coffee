@@ -221,8 +221,9 @@ class Uploader extends Module
 
 
 
-window.Uploader = Uploader
+@simple ||= {}
 
-
+@simple.uploader = (opts) ->
+  new Uploader(opts)
 
 
