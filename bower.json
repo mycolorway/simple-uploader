@@ -1,0 +1,21 @@
+{
+  "name": "simple-uploader",
+  "version": "1.0.0",
+  "homepage": "https://github.com/mycolorway/simple-uploader",
+  "authors": [
+    "farthinker <farthinker@gmail.com>"
+  ],
+  "description": "HTML5 upload logic without UI",
+  "main": "lib/uploader.js",
+  "keywords": [
+    "upload"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor",
+    "Gruntfile.coffee",
+    "package.json"
+  ]
+}
