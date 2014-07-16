@@ -180,7 +180,7 @@ class Uploader extends Module
   cancel: (file) ->
     unless file.id
       for f in @files
-        if f.id == file
+        if f.id == file * 1
           file = f
           break
 
