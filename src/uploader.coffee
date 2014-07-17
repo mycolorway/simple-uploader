@@ -97,6 +97,7 @@ class Uploader extends Module
     file.xhr = $.ajax
       url: file.url
       data: formData
+      dataType: 'json'
       processData: false
       contentType: false
       type: 'POST'
