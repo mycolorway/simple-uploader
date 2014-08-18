@@ -6,6 +6,7 @@ class Uploader extends Module
   opts:
     url: ''
     params: null
+    fileKey: 'upload_file'
     connectionCount: 3
     leaveConfirm: '正在上传文件，如果离开上传会自动取消'
 
@@ -49,6 +50,8 @@ class Uploader extends Module
     if $.isArray file
       @upload(f, opts) for f in file
     else if $(file).is('input:file') and @html5
+      key = $(file).attr('name')
+      opts.fileKey = key if key
       @upload($.makeArray($(file)[0].files), opts)
     else if !file.id or !file.obj
       file = @getFile file
@@ -83,6 +86,7 @@ class Uploader extends Module
     id: @generateId()
     url: @opts.url
     params: @opts.params
+    fileKey: @opts.fileKey
     name: name
     size: fileObj.fileSize ? fileObj.size
     ext: if name then name.split('.').pop().toLowerCase() else ''
@@ -90,7 +94,7 @@ class Uploader extends Module
 
   xhrUpload: (file) ->
     formData = new FormData()
-    formData.append("upload_file", file.obj)
+    formData.append(file.fileKey, file.obj)
     formData.append("original_filename", file.name)
     formData.append(k, v) for k, v of file.params if file.params
 
@@ -126,6 +130,8 @@ class Uploader extends Module
       name: 'uploader-' + file.id
     }).hide()
       .appendTo(document.body)
+
+    fileObj.attr 'name', file.fileKey
 
     file.form = $('<form/>', {
       method: 'post',
