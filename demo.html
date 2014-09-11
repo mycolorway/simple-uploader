@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>html5 upload component</title>
+    <meta charset="utf-8" />
+
+    <style type="text/css" media="all">
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .wrapper {
+        margin: 20px 0;
+        padding: 0 20px;
+    }
+
+    #btn-upload {
+        display: block;
+        width: 150px;
+        height: 50px;
+        border: 1px solid #999999;
+        color: #666666;
+        font-size: 16px;
+        text-align: center;
+        line-height: 50px;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+        direction: 'ltr';
+    }
+
+    #btn-upload:hover {
+        background: #f3f3f3;
+    }
+
+    #select-file {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 100px;
+        margin: 0;
+        padding: 0;
+        cursor: 'pointer';
+        opacity: 0;
+    }
+
+    .file-list {
+        margin: 20px 0 0 0;
+    }
+
+    .file {
+        padding: 10px 0;
+        font-size: 16px;
+        color: #666666;
+        line-height: 20px;
+    }
+
+    .file .size,
+    .file .progress {
+        font-size: 12px;
+        color: #999999;
+        margin: 0 0 0 5px;
+    }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+    <div class="upload">
+        <a href="javascript:;" id="btn-upload">
+            <span>点击上传文件</span>
+            <input type="file" id="select-file" multiple/>
+        </a>
+    </div>
+    <div class="file-list">
+    </div>
+</div>
+
+<script type="text/html" id="tpl-file">
+    <div class="file">
+        <span class="name"></span>
+        <span class="size"></span>
+        <span class="progress">0%</span>
+    </div>
+</script>
+
+<script type="text/javascript" src="vendor/bower/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="vendor/bower/simple-module/lib/module.js"></script>
+<script type="text/javascript" src="lib/uploader.js"></script>
+<script type="text/javascript">
+
+$(function() {
+    var uploader = simple.uploader({
+        url: '/upload'
+    });
+
+    uploader.on('beforeupload', function(e, file) {
+        var $list = $('.file-list');
+        var $file = $($('#tpl-file').html());
+
+        $file.attr('id', 'file-' + file.id);
+        $file.find('.name').text(file.name);
+        $file.find('.size').text((file.size / 1000) + 'KB');
+        $file.appendTo($list);
+    });
+
+    uploader.on('uploadprogress', function(e, file, loaded, total) {
+        var $file = $('#file-' + file.id);
+        $file.find('.progress').text((loaded / total * 100).toFixed(0) + '%');
+    });
+
+    uploader.on('uploadsuccess', function(e, file, result) {
+        var $file = $('#file-' + file.id);
+        $file.find('.progress').remove();
+    });
+
+    resetFileSelect();
+
+    function resetFileSelect() {
+        var $file = $('#select-file');
+        if ($file.val()) {
+            $file = $file.clone().replaceAll($file);
+        }
+
+        $file.off('change').on('change', function(e) {
+            var $file = $(this);
+            uploader.upload(this);
+            resetFileSelect();
+        });
+    }
+});
+
+
+</script>
+
+</body>
+
+</html>
+

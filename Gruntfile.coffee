@@ -12,9 +12,16 @@ module.exports = (grunt) ->
         files: ['src/*.coffee']
         tasks: ['coffee']
 
+    express:
+      server:
+        options:
+          server: 'server.js'
+          bases: __dirname
+
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-watch'
+  grunt.loadNpmTasks 'grunt-express'
 
-  grunt.registerTask 'default', ['coffee', 'watch']
+  grunt.registerTask 'default', ['coffee', 'express', 'watch']
 
 

@@ -18,5 +18,9 @@
     "Gruntfile.coffee",
     "package.json",
     "README.md"
-  ]
+  ],
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "simple-module": "master"
+  }
 }
