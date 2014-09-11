@@ -17,6 +17,7 @@
     "vendor",
     "Gruntfile.coffee",
     "package.json",
+    "demo.html",
     "README.md"
   ],
   "dependencies": {

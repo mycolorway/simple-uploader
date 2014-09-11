@@ -14,8 +14,6 @@ app.post('/upload', function(req, res) {
     var tmp_path = req.files.upload_file.path;
     var target_path = path.resolve('./uploads', req.files.upload_file.name);
 
-
-
     fs.rename(tmp_path, target_path, function(err) {
         if (err) throw err;
         fs.unlink(tmp_path, function() {
