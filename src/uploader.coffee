@@ -8,14 +8,11 @@ class Uploader extends Module
     params: null
     fileKey: 'upload_file'
     connectionCount: 3
-    leaveConfirm: '正在上传文件，如果离开上传会自动取消'
-
-  files: [] #files being uploaded
-
-  queue: [] #files waiting to be uploaded
 
   constructor: (opts = {}) ->
-    $.extend(@opts, opts)
+    @files = [] #files being uploaded
+    @queue = [] #files waiting to be uploaded
+    @opts = $.extend({}, @opts, opts)
     @id = ++ Uploader.count
 
     # upload the files in the queue
@@ -32,9 +29,9 @@ class Uploader extends Module
 
       # for ie
       # TODO firefox can not set the string
-      e.originalEvent.returnValue = @opts.leaveConfirm
+      e.originalEvent.returnValue = @_t('leaveConfirm')
       # for webkit
-      return @opts.leaveConfirm
+      return @_t('leaveConfirm')
 
   generateId: (->
     id = 0
@@ -65,7 +62,7 @@ class Uploader extends Module
     return if @triggerHandler('beforeupload', [file]) == false
 
     @files.push file
-    @xhrUpload file
+    @_xhrUpload file
     @uploading = true
 
   getFile: (fileObj) ->
@@ -83,7 +80,7 @@ class Uploader extends Module
     ext: if name then name.split('.').pop().toLowerCase() else ''
     obj: fileObj
 
-  xhrUpload: (file) ->
+  _xhrUpload: (file) ->
     formData = new FormData()
     formData.append(file.fileKey, file.obj)
     formData.append("original_filename", file.name)
@@ -151,6 +148,11 @@ class Uploader extends Module
     $(window).off '.uploader-' + @id
     $(document).off '.uploader-' + @id
 
+  @i18n:
+    'zh-CN': 
+      leaveConfirm: '正在上传文件，如果离开上传会自动取消'
+
+  @locale: 'zh-CN'
 
 @simple ||= {}
 
