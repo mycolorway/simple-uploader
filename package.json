@@ -1,22 +1,24 @@
 {
-  "name": "simple-module",
-  "version": "0.0.1",
-  "description": "A simple editor designed by mycolorway",
+  "name": "simple-uploader",
+  "version": "2.0.0",
+  "description": "A HTML5 upload component without UI",
   "repository": {
     "type": "git",
-    "url": "git@github.com:mycolorway/simple-module.git"
+    "url": "git@github.com:mycolorway/simple-uploader.git"
   },
   "author": "farthinker",
-  "license": "GPL",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mycolorway/simple-module/issues"
+    "url": "https://github.com/mycolorway/simple-uploader/issues"
   },
-  "homepage": "https://github.com/mycolorway/simple-module",
+  "homepage": "https://github.com/mycolorway/simple-uploader",
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-coffee": "~0.8.0",
-    "grunt-express": "~1.2.1",
-    "express": "~3.5.1"
+    "grunt": "0.x",
+    "grunt-contrib-watch": "0.x",
+    "grunt-contrib-coffee": "0.x",
+    "grunt-contrib-jasmine": "0.x",
+    "grunt-umd": "2.x",
+    "grunt-express": "1.4.0",
+    "express": "~3.3.4"
   }
 }

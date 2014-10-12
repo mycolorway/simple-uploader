@@ -1,5 +1,5 @@
 
-class Uploader extends Module
+class Uploader extends SimpleModule
 
   @count: 0
 
@@ -9,10 +9,9 @@ class Uploader extends Module
     fileKey: 'upload_file'
     connectionCount: 3
 
-  constructor: (opts = {}) ->
+  _init: ->
     @files = [] #files being uploaded
     @queue = [] #files waiting to be uploaded
-    @opts = $.extend({}, @opts, opts)
     @id = ++ Uploader.count
 
     # upload the files in the queue
@@ -154,9 +153,8 @@ class Uploader extends Module
 
   @locale: 'zh-CN'
 
-@simple ||= {}
 
-@simple.uploader = (opts) ->
+uploader = (opts) ->
   new Uploader(opts)
 
 

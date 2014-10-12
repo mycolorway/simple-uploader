@@ -16,6 +16,8 @@ node_modules
 
 .DS_Store
 .sass-cache
+.grunt
+.bundle
 uploads
 vendor
 
