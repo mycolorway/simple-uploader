@@ -41,7 +41,7 @@ class Uploader extends SimpleModule
   upload: (file, opts = {}) ->
     return unless file?
 
-    if $.isArray file
+    if $.isArray(file) or file instanceof FileList
       @upload(f, opts) for f in file
     else if $(file).is('input:file')
       key = $(file).attr('name')
