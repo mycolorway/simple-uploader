@@ -88,7 +88,6 @@ class Uploader extends SimpleModule
     file.xhr = $.ajax
       url: file.url
       data: formData
-      dataType: 'json'
       processData: false
       contentType: false
       type: 'POST'
