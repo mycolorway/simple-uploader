@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/mycolorway/simple-uploader",
   "devDependencies": {
-    "grunt": "0.x",
+    "grunt": "~0.4.5",
     "grunt-contrib-watch": "0.x",
     "grunt-contrib-coffee": "0.x",
     "grunt-contrib-jasmine": "0.x",

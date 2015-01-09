@@ -107,6 +107,7 @@ class Uploader extends SimpleModule
       success: (result) =>
         @trigger 'uploadprogress', [file, file.size, file.size]
         @trigger 'uploadsuccess', [file, result]
+        $(document).trigger 'uploadsuccess', [file, result, @]
       complete: (xhr, status) =>
         @trigger 'uploadcomplete', [file, xhr.responseText]
 
@@ -147,7 +148,7 @@ class Uploader extends SimpleModule
     $(document).off '.uploader-' + @id
 
   @i18n:
-    'zh-CN': 
+    'zh-CN':
       leaveConfirm: '正在上传文件，如果离开上传会自动取消'
 
   @locale: 'zh-CN'
