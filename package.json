@@ -16,7 +16,7 @@
   "homepage": "https://github.com/mycolorway/simple-uploader",
   "dependencies": {
     "jquery": "2.x",
-    "simple-module": "2.x"
+    "simplemodule": "2.x"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
