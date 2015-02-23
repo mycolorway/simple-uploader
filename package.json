@@ -1,6 +1,6 @@
 {
   "name": "simple-uploader",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "A HTML5 upload component without UI",
   "keywords": "upload",
   "repository": {
