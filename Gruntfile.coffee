@@ -23,7 +23,7 @@ module.exports = (grunt) ->
         deps:
           'default': ['$', 'SimpleModule']
           amd: ['jquery', 'simple-module']
-          cjs: ['jquery', 'simple-module']
+          cjs: ['jquery', 'simplemodule']
           global:
             items: ['jQuery', 'SimpleModule']
             prefix: ''
@@ -64,5 +64,3 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-umd'
 
   grunt.registerTask 'default', ['coffee', 'umd', 'jasmine:test:build', 'express', 'watch']
-
-
