@@ -1,6 +1,6 @@
 {
   "name": "simple-uploader",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "A HTML5 upload component without UI",
   "keywords": "upload",
   "repository": {
@@ -16,7 +16,7 @@
   "homepage": "https://github.com/mycolorway/simple-uploader",
   "dependencies": {
     "jquery": "2.x",
-    "simplemodule": "2.x"
+    "simple-module": "~2.0.5"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
