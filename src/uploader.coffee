@@ -19,7 +19,7 @@ class Uploader extends SimpleModule
       @files.splice($.inArray(file, @files), 1)
       if @queue.length > 0 and @files.length < @opts.connectionCount
         @upload @queue.shift()
-      else
+      else if @files.length == 0
         @uploading = false
 
     # confirm to leave page while uploading
