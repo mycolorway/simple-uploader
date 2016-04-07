@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    
+    block title
+      title= pkg.name
+      
+    meta(name='description', content=pkg.description)
+    
+    link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/github.min.css')
+    link(rel='stylesheet', href='http://cdn.jsdelivr.net/github-markdown-css/2.2.1/github-markdown.css')
+    link(rel='stylesheet', href='assets/styles/app.css')
+    block styles
+    
+  body
+    div.page(id=filename)
+      include ./sidebar.jade
+      
+      div.content.markdown-body
+        block content
+  
+    script(src='http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js')
+    script(src='assets/scripts/app.js')
+    block scripts

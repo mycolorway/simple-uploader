@@ -1,29 +1,55 @@
+if (isNode = typeof module == 'object' and module.exports)
+  SimpleModule = require 'simple-module'
+  _            = require 'lodash'
+  i18next      = require 'i18next'
+else
+  SimpleModule = window.SimpleModule
+  _            = window._
+  i18next      = window.i18next
 
-class Uploader extends SimpleModule
+
+class SimpleUploader extends SimpleModule
 
   @count: 0
 
-  opts:
+  @opts:
     url: ''
     params: null
     fileKey: 'upload_file'
     connectionCount: 3
 
-  _init: ->
+  @i18n: i18next.init
+    lng: 'en'
+    fallbackLng: 'en'
+
+  constructor: (opts) ->
+    super()
+    _.extend @opts, SimpleUploader.opts, opts
+
+    if @opts.lang
+      SimpleUploader.changeLanguage @opts.lang
+
     @files = [] #files being uploaded
     @queue = [] #files waiting to be uploaded
-    @id = ++ Uploader.count
+    @id = ++ SimpleUploader.count
 
+    @_bind()
+
+  _t: (args...) ->
+    SimpleUploader.i18n.t args...
+
+  _bind: ->
     # upload the files in the queue
     @on 'uploadcomplete', (e, file) =>
-      @files.splice($.inArray(file, @files), 1)
+      @files.splice(@files.indexOf(file), 1)
       if @queue.length > 0 and @files.length < @opts.connectionCount
         @upload @queue.shift()
       else if @files.length == 0
         @uploading = false
+        @triger 'uploadstop'
 
     # confirm to leave page while uploading
-    $(window).on 'beforeunload.uploader-' + @id, (e) =>
+    @_confirmLeaveHandler = (e) =>
       return unless @uploading
 
       # for ie
@@ -31,6 +57,7 @@ class Uploader extends SimpleModule
       e.originalEvent.returnValue = @_t('leaveConfirm')
       # for webkit
       return @_t('leaveConfirm')
+    window.addEventListner 'beforeunload', @_confirmLeaveHandler
 
   generateId: (->
     id = 0
@@ -41,9 +68,9 @@ class Uploader extends SimpleModule
   upload: (file, opts = {}) ->
     return unless file?
 
-    if $.isArray(file) or file instanceof FileList
+    if _.isArray(file) or file instanceof FileList
       @upload(f, opts) for f in file
-    else if $(file).is('input:file')
+    else if _.isElement(file) and file.matches('input[type=file]')
       key = $(file).attr('name')
       opts.fileKey = key if key
       @upload($.makeArray($(file)[0].files), opts)
@@ -52,7 +79,7 @@ class Uploader extends SimpleModule
 
     return unless file and file.obj
 
-    $.extend(file, opts)
+    _.extend(file, opts)
 
     if @files.length >= @opts.connectionCount
       @queue.push file
@@ -125,7 +152,7 @@ class Uploader extends SimpleModule
     file.xhr = null
 
   readImageFile: (fileObj, callback) ->
-    return unless $.isFunction callback
+    return unless _.isFunction callback
 
     img = new Image()
     img.onload = ->
@@ -133,7 +160,8 @@ class Uploader extends SimpleModule
     img.onerror = ->
       callback()
 
-    if window.FileReader && FileReader.prototype.readAsDataURL && /^image/.test(fileObj.type)
+    if window.FileReader && FileReader.prototype.readAsDataURL &&
+    /^image/.test(fileObj.type)
       fileReader = new FileReader()
       fileReader.onload = (e) ->
         img.src = e.target.result
@@ -144,17 +172,13 @@ class Uploader extends SimpleModule
   destroy: ->
     @queue.length = 0
     @cancel file for file in @files
-    $(window).off '.uploader-' + @id
+
+    window.removeEventListener 'beforeunload', @_confirmLeaveHandler
     $(document).off '.uploader-' + @id
 
-  @i18n:
-    'zh-CN':
-      leaveConfirm: '正在上传文件，如果离开上传会自动取消'
 
-  @locale: 'zh-CN'
-
-
-uploader = (opts) ->
-  new Uploader(opts)
-
-
+if isNode
+  require 'i18n/en'
+  module.exports = SimpleUploader
+else
+  window.SimpleUploader = SimpleUploader

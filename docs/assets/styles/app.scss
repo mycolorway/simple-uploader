@@ -1,0 +1,166 @@
+$page-width: 1280px;
+$sidebar-width: 320px;
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  color: #333333;
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  line-height: 1.5;
+
+  a {
+    color: #4078c0;
+    text-decoration: none;
+
+    &:hover,
+    &:active {
+      color: #6da1e3;
+    }
+  }
+}
+
+.page {
+  min-height: 100%;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 0;
+
+  .sidebar {
+    width: $sidebar-width;
+    box-sizing: border-box;
+    padding: 30px 30px 30px 40px;
+    background: #f3f3f3;
+    font-size: 16px;
+    flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
+
+    .title {
+      font: {
+        weight: bold;
+        size: 32px;
+        family: "Trebuchet MS", Helvetica, sans-serif;
+      }
+      color: #000000;
+    }
+
+    .author {
+      color: #bbbbbb;
+      margin: 0;
+      font: {
+        size: 18px;
+      }
+    }
+
+    nav {
+      margin: 40px 0 0 2px;
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+          font-size: 20px;
+          margin: 0 0 10px 0;
+          color: #666666;
+
+          &.active a {
+            color: #333333;
+            font-weight: bold;
+          }
+
+          ul {
+            margin: 10px 0 0 20px;
+
+            li {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .content {
+    width: $page-width - $sidebar-width;
+    padding: 30px 50px;
+    box-sizing: border-box;
+    font-size: 16px;
+    flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
+
+    .api-item {
+      line-height: 22px;
+      position: relative;
+
+      &:hover {
+        .anchor {
+          display: block;
+        }
+      }
+
+      .anchor {
+        display: none;
+        width: 30px;
+        line-height: 22px;
+        position: absolute;
+        top: 0;
+        left: -30px;
+        margin: 0;
+        padding: 0;
+
+        svg {
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+
+      .name {
+        font-size: 20px;
+        outline: none;
+        margin: 0 10px 0 0;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+
+      code {
+        margin: 0 5px;
+      }
+
+      .params {
+        color: #999999;
+        margin: 0 5px;
+
+        .param {
+          color: #000000;
+          margin: 0 0 0 5px;
+        }
+
+        code {
+          color: #666666;
+        }
+      }
+
+      .default, .return {
+        color: #999999;
+        margin: 0 5px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  &#index {
+    .content {
+      h1 {
+        display: none;
+      }
+    }
+  }
+}

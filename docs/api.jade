@@ -1,0 +1,67 @@
+extends layouts/app.jade
+
+block title
+  title API Reference - #{pkg.name}
+  
+block content
+  :markdown-it
+    ## Options
+    
+    Pass options to constructor to create new instance
+    
+    ```js
+    let module = new SimpleUploader({
+      optionName: optionValue
+    });
+    ```
+    
+  p.api-item
+    a.anchor(id='option-name', href='#option-name')
+      include ./includes/anchor-icon.jade
+    b.name name
+    code String
+    span.default default: 'simple-uploader'
+    
+  :markdown-it
+    Specify the name of module.
+  
+    ## Instance Methods
+  
+    Invoke instance class method on SimpleModule instance:
+  
+    ```js
+    let module = new SimpleUploader()
+    module.instanceMethod()
+    ```
+      
+  p.api-item
+    a.anchor(id='instance-method-name', href='#instance-method-name')
+      include ./includes/anchor-icon.jade
+    b.name name
+    span.params ([#[span.param name]#[code String]])
+    span.return return: name / self
+    
+  :markdown-it
+    Get or set name of the module.
+    
+  :markdown-it
+    ## Class Methods
+    
+    Invoke methods on SimpleModule class:
+    
+    ```js
+    SimpleUploader.classMethod()
+    ```
+    
+  p.api-item
+    a.anchor(id='class-method-test', href='#instance-method-test')
+      include ./includes/anchor-icon.jade
+    b.name test
+    span.params ( )
+    span.return return: self
+    
+  :markdown-it
+    Test method.
+    
+    ## Events
+    

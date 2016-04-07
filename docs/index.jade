@@ -1,0 +1,7 @@
+extends layouts/app.jade
+
+block title
+  title Home - #{pkg.name}
+  
+block content
+  include:markdown-it ../README.md
