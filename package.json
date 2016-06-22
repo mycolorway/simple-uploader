@@ -1,5 +1,6 @@
 {
   "name": "simple-uploader",
+  "githubOwner": "mycolorway",
   "version": "2.0.8",
   "description": "A HTML5 upload component without UI",
   "keywords": "upload",
@@ -12,19 +13,32 @@
   "bugs": {
     "url": "https://github.com/mycolorway/simple-uploader/issues"
   },
-  "main": "lib/uploader.js",
+  "script":{
+    "start": "gulp",
+    "test": "gulp test"
+  },
+  "main": "dist/uploader.js",
   "homepage": "https://github.com/mycolorway/simple-uploader",
   "dependencies": {
-    "jquery": "2.x",
-    "simple-module": "~2.0.5"
+    "jquery": "3.x",
+    "simple-module": "~3.0.0"
   },
   "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-contrib-watch": "0.x",
-    "grunt-contrib-coffee": "0.x",
-    "grunt-contrib-jasmine": "0.x",
-    "grunt-umd": "2.x",
-    "grunt-express": "1.4.0",
-    "express": "~3.3.4"
+    "browserify": "^13.0.0",
+    "chai": "^3.5.0",
+    "coffee-coverage": "^1.0.1",
+    "coffee-script": "^1.10.0",
+    "coffeelint": "^1.15.0",
+    "coveralls": "^2.11.8",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-util": "^3.0.7",
+    "istanbul": "^0.4.2",
+    "lodash": "^4.13.1",
+    "mocha": "^2.4.5",
+    "mocha-phantomjs-core": "^2.0.0",
+    "node-sass": "^3.8.0",
+    "phantomjs-prebuilt": "^2.1.7",
+    "through2": "^2.0.1",
+    "uglify-js": "^2.6.2"
   }
 }
