@@ -1,0 +1,1 @@
+/* <%= name %> v<%= version %> | (c) Mycolorway Design | MIT License */

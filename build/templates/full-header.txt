@@ -1,0 +1,10 @@
+/**
+ * <%= name %> v<%= version %>
+ * <%= homepage %>
+ *
+ * Copyright Mycolorway Design
+ * Released under the MIT license
+ * <%= homepage %>/license.html
+ *
+ * Date: <%= date %>
+ */

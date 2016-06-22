@@ -1,4 +1,3 @@
-
 class Uploader extends SimpleModule
 
   @count: 0
@@ -133,7 +132,9 @@ class Uploader extends SimpleModule
     img.onerror = ->
       callback()
 
-    if window.FileReader && FileReader.prototype.readAsDataURL && /^image/.test(fileObj.type)
+    if window.FileReader &&
+    FileReader.prototype.readAsDataURL &&
+    /^image/.test(fileObj.type)
       fileReader = new FileReader()
       fileReader.onload = (e) ->
         img.src = e.target.result
@@ -153,8 +154,6 @@ class Uploader extends SimpleModule
 
   @locale: 'zh-CN'
 
-
-uploader = (opts) ->
-  new Uploader(opts)
+module.exports = Uploader
 
 
