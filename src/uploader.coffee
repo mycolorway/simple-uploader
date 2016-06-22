@@ -8,7 +8,8 @@ class Uploader extends SimpleModule
     fileKey: 'upload_file'
     connectionCount: 3
 
-  _init: ->
+  constructor: ->
+    super
     @files = [] #files being uploaded
     @queue = [] #files waiting to be uploaded
     @id = ++ Uploader.count
