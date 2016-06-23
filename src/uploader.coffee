@@ -2,14 +2,16 @@ class Uploader extends SimpleModule
 
   @count: 0
 
-  opts:
+  @opts:
     url: ''
     params: null
     fileKey: 'upload_file'
     connectionCount: 3
+    leaveConfirm: 'Are you sure you want to leave?'
 
-  constructor: ->
+  constructor: (opts)->
     super
+    @opts = $.extend {}, Uploader.opts, opts
     @files = [] #files being uploaded
     @queue = [] #files waiting to be uploaded
     @id = ++ Uploader.count
@@ -28,9 +30,9 @@ class Uploader extends SimpleModule
 
       # for ie
       # TODO firefox can not set the string
-      e.originalEvent.returnValue = @_t('leaveConfirm')
+      e.originalEvent.returnValue = @opt.leaveConfirm
       # for webkit
-      return @_t('leaveConfirm')
+      return @opts.leaveConfirm
 
   generateId: (->
     id = 0
@@ -58,7 +60,7 @@ class Uploader extends SimpleModule
       @queue.push file
       return
 
-    return if @triggerHandler('beforeupload', [file]) == false
+    return if @trigger('beforeupload', [file]) == false
 
     @files.push file
     @_xhrUpload file
@@ -148,12 +150,6 @@ class Uploader extends SimpleModule
     @cancel file for file in @files
     $(window).off '.uploader-' + @id
     $(document).off '.uploader-' + @id
-
-  @i18n:
-    'zh-CN':
-      leaveConfirm: '正在上传文件，如果离开上传会自动取消'
-
-  @locale: 'zh-CN'
 
 module.exports = Uploader
 
