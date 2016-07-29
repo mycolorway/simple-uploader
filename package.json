@@ -13,7 +13,7 @@
   "bugs": {
     "url": "https://github.com/mycolorway/simple-uploader/issues"
   },
-  "script":{
+  "scripts":{
     "start": "gulp",
     "test": "gulp test"
   },
