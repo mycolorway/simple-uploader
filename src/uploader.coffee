@@ -7,11 +7,16 @@ class Uploader extends SimpleModule
     params: null
     fileKey: 'upload_file'
     connectionCount: 3
+    locales: null
+
+  @locales:
     leaveConfirm: 'Are you sure you want to leave?'
 
   constructor: (opts)->
     super
     @opts = $.extend {}, Uploader.opts, opts
+    @_locales = $.extend {}, Uploader.locales, @opts.locales
+
     @files = [] #files being uploaded
     @queue = [] #files waiting to be uploaded
     @id = ++ Uploader.count
@@ -30,9 +35,9 @@ class Uploader extends SimpleModule
 
       # for ie
       # TODO firefox can not set the string
-      e.originalEvent.returnValue = @opt.leaveConfirm
+      e.originalEvent.returnValue = @_locales.leaveConfirm
       # for webkit
-      return @opts.leaveConfirm
+      return @_locales.leaveConfirm
 
   generateId: (->
     id = 0
