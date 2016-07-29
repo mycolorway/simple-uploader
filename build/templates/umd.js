@@ -7,5 +7,5 @@
 }(this, function (<%= dependencies.params %>) {
 var define, module, exports;
 var b = <%= contents %>
-return b(1);
+return b('<%= filename %>');
 }));

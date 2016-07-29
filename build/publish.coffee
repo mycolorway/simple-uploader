@@ -8,23 +8,6 @@ compile = require './compile'
 test = require './test'
 _ = require 'lodash'
 
-bumpVersion = (done) ->
-  newVersion = changelogs.lastestVersion
-  unless newVersion
-    throw new Error('Publish: Invalid version in CHANGELOG.md')
-    return
-
-  pkg = require '../package'
-  pkg.version = newVersion
-  fs.writeFileSync './package.json', JSON.stringify(pkg, null, 2)
-
-  bowerConfig = require '../bower.json'
-  bowerConfig.version = newVersion
-  fs.writeFileSync './bower.json', JSON.stringify(bowerConfig, null, 2)
-
-  done()
-bumpVersion.displayName = 'bump-version'
-
 createRelease = (done) ->
   try
     token = _.trim fs.readFileSync('.token').toString()
@@ -66,7 +49,6 @@ createRelease.displayName = 'create-release'
 publish = gulp.series [
   compile,
   test,
-  bumpVersion,
   createRelease
 ]..., (done) ->
   done()

@@ -15,9 +15,13 @@ compileSass = ->
     .pipe gulp.dest('dist/')
 compileSass.displayName = 'compile-sass'
 
+checkCoffee = ->
+  gulp.src 'src/**/*.coffee'
+    .pipe coffeelint()
+checkCoffee.displayName = 'coffeelint'
+
 compileCoffee = ->
   gulp.src 'src/uploader.coffee'
-    .pipe coffeelint()
     .pipe browserify()
     .pipe umd()
     .pipe header()
@@ -36,7 +40,7 @@ compileUglify.displayName = 'compile-uglify'
 compileAssets = gulp.parallel compileCoffee, compileSass, (done) ->
   done()
 
-compile = gulp.series compileAssets, compileUglify, (done) ->
+compile = gulp.series checkCoffee, compileAssets, compileUglify, (done) ->
   done()
 
 gulp.task 'compile', compile

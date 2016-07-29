@@ -21,6 +21,7 @@ module.exports = (opts) ->
 
   through.obj (file, encoding, done) ->
     opts.contents = file.contents.toString()
+    opts.filename = file.stem
     file.contents = new Buffer tpl opts
     @push file
     done()

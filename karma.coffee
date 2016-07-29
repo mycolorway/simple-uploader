@@ -1,5 +1,3 @@
-coveragify = require 'browserify-coffee-coverage'
-
 module.exports = (config) ->
   config.set
 
@@ -9,15 +7,16 @@ module.exports = (config) ->
 
     # frameworks to use
     # available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['browserify', 'mocha', 'chai']
+    frameworks: ['coffee-coverage', 'browserify', 'mocha', 'chai', 'sinon']
 
 
     # list of files / patterns to load in the browser
     files: [
       'node_modules/jquery/dist/jquery.js'
       'node_modules/simple-module/dist/simple-module.js'
+      'test/coverage-init.js'
       'src/uploader.coffee',
-      'test/uploader.coffee'
+      'test/**/*.coffee'
     ]
 
 
@@ -30,12 +29,20 @@ module.exports = (config) ->
     # available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors:
       'src/uploader.coffee': ['browserify']
-      'test/uploader.coffee': ['browserify']
+      'test/**/*.coffee': ['browserify']
 
 
     browserify:
-      transform: [coveragify]
+      transform: [['browserify-coffee-coverage', {noInit: true, instrumentor: 'istanbul'}]]
       extensions: ['.js', '.coffee']
+
+
+    coffeeCoverage:
+      framework:
+        initAllSources: true
+        sourcesBasePath: 'src'
+        dest: 'test/coverage-init.js'
+        instrumentor: 'istanbul'
 
 
     coverageReporter:
@@ -46,10 +53,11 @@ module.exports = (config) ->
         { type: 'text-summary' }
       ]
 
+
     # test results reporter to use
     # possible values: 'dots', 'progress'
     # available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['coverage', 'dots']
+    reporters: ['coverage', 'mocha']
 
 
     # web server port

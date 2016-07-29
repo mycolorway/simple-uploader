@@ -14,7 +14,8 @@ module.exports = (opts) ->
   through.obj (file, encoding, done) ->
 
     try
-      b.add file.path
+      b.require file.path,
+        expose: file.stem
       b.bundle (error, buffer) =>
         handleError(error, @) if error
         file.contents = buffer
