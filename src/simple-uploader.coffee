@@ -1,15 +1,22 @@
-
 class Uploader extends SimpleModule
 
   @count: 0
 
-  opts:
+  @opts:
     url: ''
     params: null
     fileKey: 'upload_file'
     connectionCount: 3
+    locales: null
 
-  _init: ->
+  @locales:
+    leaveConfirm: 'Are you sure you want to leave?'
+
+  constructor: (opts)->
+    super
+    @opts = $.extend {}, Uploader.opts, opts
+    @_locales = $.extend {}, Uploader.locales, @opts.locales
+
     @files = [] #files being uploaded
     @queue = [] #files waiting to be uploaded
     @id = ++ Uploader.count
@@ -28,9 +35,9 @@ class Uploader extends SimpleModule
 
       # for ie
       # TODO firefox can not set the string
-      e.originalEvent.returnValue = @_t('leaveConfirm')
+      e.originalEvent.returnValue = @_locales.leaveConfirm
       # for webkit
-      return @_t('leaveConfirm')
+      return @_locales.leaveConfirm
 
   generateId: (->
     id = 0
@@ -58,7 +65,7 @@ class Uploader extends SimpleModule
       @queue.push file
       return
 
-    return if @triggerHandler('beforeupload', [file]) == false
+    return if @trigger('beforeupload', [file]) == false
 
     @files.push file
     @_xhrUpload file
@@ -133,7 +140,9 @@ class Uploader extends SimpleModule
     img.onerror = ->
       callback()
 
-    if window.FileReader && FileReader.prototype.readAsDataURL && /^image/.test(fileObj.type)
+    if window.FileReader &&
+    FileReader.prototype.readAsDataURL &&
+    /^image/.test(fileObj.type)
       fileReader = new FileReader()
       fileReader.onload = (e) ->
         img.src = e.target.result
@@ -147,14 +156,6 @@ class Uploader extends SimpleModule
     $(window).off '.uploader-' + @id
     $(document).off '.uploader-' + @id
 
-  @i18n:
-    'zh-CN':
-      leaveConfirm: '正在上传文件，如果离开上传会自动取消'
-
-  @locale: 'zh-CN'
-
-
-uploader = (opts) ->
-  new Uploader(opts)
+module.exports = Uploader
 
 

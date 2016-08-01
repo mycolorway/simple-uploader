@@ -1,5 +1,6 @@
 {
   "name": "simple-uploader",
+  "githubOwner": "mycolorway",
   "version": "2.0.8",
   "description": "A HTML5 upload component without UI",
   "keywords": "upload",
@@ -12,19 +13,50 @@
   "bugs": {
     "url": "https://github.com/mycolorway/simple-uploader/issues"
   },
-  "main": "lib/uploader.js",
+  "scripts":{
+    "start": "gulp",
+    "test": "gulp test"
+  },
+  "main": "dist/simple-uploader.js",
   "homepage": "https://github.com/mycolorway/simple-uploader",
   "dependencies": {
-    "jquery": "2.x",
-    "simple-module": "~2.0.5"
+    "jquery": "^3.0.0",
+    "simple-module": "^3.0.0"
+  },
+  "umd": {
+    "name": "SimpleUploader",
+    "dependencies": {
+      "cjs": ["jquery","simple-module"],
+      "global": ["jQuery","SimpleUploader"],
+      "params": ["$","SimpleUploader"]
+    }
   },
   "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-contrib-watch": "0.x",
-    "grunt-contrib-coffee": "0.x",
-    "grunt-contrib-jasmine": "0.x",
-    "grunt-umd": "2.x",
-    "grunt-express": "1.4.0",
-    "express": "~3.3.4"
+    "browserify": "^13.0.0",
+    "browserify-coffee-coverage": "^1.1.1",
+    "chai": "^3.5.0",
+    "coffee-script": "^1.10.0",
+    "coffeelint": "^1.15.0",
+    "coveralls": "^2.11.8",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-util": "^3.0.7",
+    "istanbul": "^0.4.2",
+    "karma": "^1.1.1",
+    "karma-browserify": "^5.0.5",
+    "karma-chai": "^0.1.0",
+    "karma-coffee-coverage": "^1.1.2",
+    "karma-coverage": "^1.0.0",
+    "karma-mocha": "^1.0.1",
+    "karma-mocha-reporter": "^2.0.4",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-sinon": "^1.0.5",
+    "lodash": "^4.13.1",
+    "mocha": "^2.5.3",
+    "node-sass": "^3.8.0",
+    "phantomjs-prebuilt": "^2.1.7",
+    "sinon": "^1.17.5",
+    "through2": "^2.0.1",
+    "uglify-js": "^2.6.2",
+    "watchify": "^3.7.0"
   }
 }
