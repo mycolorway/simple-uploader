@@ -2,20 +2,25 @@ expect = chai.expect
 SimpleUploader = require '../src/uploader'
 
 describe 'SimpleUploader', ->
+  beforeEach ()->
+    @server = sinon.fakeServer.create()
+
+  afterEach ()->
+    @server.restore();
+
 
   it 'should trigger several events while uploading', ->
     uploader = new SimpleUploader
       url: '/upload'
     expect(uploader).to.be.ok
-    return
 
     file = new Blob ['This is a test file'],
       type: 'text/plain'
 
     callback =
-      beforeupload: jasmine.createSpy 'beforeupload'
-      uploadprogress: jasmine.createSpy 'uploadprogress'
-      uploadsuccess: jasmine.createSpy 'uploadsuccess'
+      beforeupload: sinon.spy()
+      uploadprogress: sinon.spy()
+      uploadsuccess: sinon.spy()
 
     uploader.on 'beforeupload', (e, file) ->
       callback.beforeupload()
@@ -27,19 +32,20 @@ describe 'SimpleUploader', ->
       callback.uploadsuccess()
       expect(result?.success).to.equal(true)
 
+    @server.respondWith "POST", "/upload", [
+      200,
+      {"Content-Type": "application/json"},
+      '{"success": true}'
+    ]
     uploader.upload file
-    request = jasmine.Ajax.requests.mostRecent()
 
-    expect(request.url).to.equal('/upload')
-    expect(callback.beforeupload).toHaveBeenCalled()
-    expect(callback.uploadprogress).not.toHaveBeenCalled()
-    expect(callback.uploadsuccess).not.toHaveBeenCalled()
+    expect(callback.beforeupload.called).to.be.true
+    expect(callback.uploadprogress.called).to.be.false
+    expect(callback.uploadsuccess.called).to.be.false
 
-    request.response
-      status: 200
-      contentType: 'application/json'
-      responseText: '{"success": true}'
+    @server.respond();
 
-    expect(callback.uploadprogress).toHaveBeenCalled()
-    expect(callback.uploadsuccess).toHaveBeenCalled()
+    expect(callback.uploadprogress.called).to.be.true
+    expect(callback.uploadsuccess.called).to.be.true
+
 

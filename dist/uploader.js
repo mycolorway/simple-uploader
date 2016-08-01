@@ -31,12 +31,17 @@ Uploader = (function(superClass) {
     params: null,
     fileKey: 'upload_file',
     connectionCount: 3,
+    locales: null
+  };
+
+  Uploader.locales = {
     leaveConfirm: 'Are you sure you want to leave?'
   };
 
   function Uploader(opts) {
     Uploader.__super__.constructor.apply(this, arguments);
     this.opts = $.extend({}, Uploader.opts, opts);
+    this._locales = $.extend({}, Uploader.locales, this.opts.locales);
     this.files = [];
     this.queue = [];
     this.id = ++Uploader.count;
@@ -55,8 +60,8 @@ Uploader = (function(superClass) {
         if (!_this.uploading) {
           return;
         }
-        e.originalEvent.returnValue = _this.opt.leaveConfirm;
-        return _this.opts.leaveConfirm;
+        e.originalEvent.returnValue = _this._locales.leaveConfirm;
+        return _this._locales.leaveConfirm;
       };
     })(this));
   }
