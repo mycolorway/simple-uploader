@@ -21,7 +21,7 @@ checkCoffee = ->
 checkCoffee.displayName = 'coffeelint'
 
 compileCoffee = ->
-  gulp.src 'src/uploader.coffee'
+  gulp.src 'src/simple-uploader.coffee'
     .pipe browserify()
     .pipe umd()
     .pipe header()

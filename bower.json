@@ -6,7 +6,7 @@
     "farthinker <farthinker@gmail.com>"
   ],
   "description": "A HTML5 upload component without UI",
-  "main": "dist/uploader.js",
+  "main": "dist/simple-uploader.js",
   "keywords": [
     "upload"
   ],

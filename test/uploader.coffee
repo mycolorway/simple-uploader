@@ -1,5 +1,5 @@
 expect = chai.expect
-SimpleUploader = require '../src/uploader'
+SimpleUploader = require '../src/simple-uploader'
 
 describe 'SimpleUploader', ->
   beforeEach ()->
