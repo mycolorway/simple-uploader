@@ -44,7 +44,12 @@ SimpleUploader = (function(superClass) {
     this._locales = $.extend({}, SimpleUploader.locales, this.opts.locales);
     this.files = [];
     this.queue = [];
+    this.uploading = false;
     this.id = ++SimpleUploader.count;
+    this._bind();
+  }
+
+  SimpleUploader.prototype._bind = function() {
     this.on('uploadcomplete', (function(_this) {
       return function(e, file) {
         _this.files.splice($.inArray(file, _this.files), 1);
@@ -55,7 +60,7 @@ SimpleUploader = (function(superClass) {
         }
       };
     })(this));
-    $(window).on('beforeunload.uploader-' + this.id, (function(_this) {
+    return $(window).on('beforeunload.uploader-' + this.id, (function(_this) {
       return function(e) {
         if (!_this.uploading) {
           return;
@@ -64,7 +69,7 @@ SimpleUploader = (function(superClass) {
         return _this._locales.leaveConfirm;
       };
     })(this));
-  }
+  };
 
   SimpleUploader.prototype.generateId = (function() {
     var id;
@@ -204,6 +209,7 @@ SimpleUploader = (function(superClass) {
         }
       }
     }
+    this.files.splice($.inArray(file, this.files), 1);
     this.trigger('uploadcancel', [file]);
     if (file.xhr) {
       file.xhr.abort();
@@ -221,7 +227,7 @@ SimpleUploader = (function(superClass) {
       return callback(img);
     };
     img.onerror = function() {
-      return callback();
+      return callback(false);
     };
     if (window.FileReader && FileReader.prototype.readAsDataURL && /^image/.test(fileObj.type)) {
       fileReader = new FileReader();
@@ -230,7 +236,7 @@ SimpleUploader = (function(superClass) {
       };
       return fileReader.readAsDataURL(fileObj);
     } else {
-      return callback();
+      return callback(false);
     }
   };
 

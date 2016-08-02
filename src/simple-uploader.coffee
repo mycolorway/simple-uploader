@@ -19,8 +19,12 @@ class SimpleUploader extends SimpleModule
 
     @files = [] #files being uploaded
     @queue = [] #files waiting to be uploaded
+    @uploading = false
     @id = ++ SimpleUploader.count
 
+    @_bind()
+
+  _bind: ->
     # upload the files in the queue
     @on 'uploadcomplete', (e, file) =>
       @files.splice($.inArray(file, @files), 1)
@@ -125,6 +129,7 @@ class SimpleUploader extends SimpleModule
           file = f
           break
 
+    @files.splice($.inArray(file, @files), 1)
     @trigger 'uploadcancel', [file]
 
     # abort xhr will trigger complete event automatically
@@ -138,7 +143,7 @@ class SimpleUploader extends SimpleModule
     img.onload = ->
       callback img
     img.onerror = ->
-      callback()
+      callback false
 
     if window.FileReader &&
     FileReader.prototype.readAsDataURL &&
@@ -148,7 +153,7 @@ class SimpleUploader extends SimpleModule
         img.src = e.target.result
       fileReader.readAsDataURL fileObj
     else
-      callback()
+      callback false
 
   destroy: ->
     @queue.length = 0

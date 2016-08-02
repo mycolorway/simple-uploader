@@ -14,7 +14,8 @@ module.exports = ->
     if summary.errorCount > 0 || summary.warningCount > 0
       reporter = new Reporter errorReport
       reporter.publish()
-      handleError 'coffeelint failed with errors or warnings', @
+      if summary.errorCount > 0
+        handleError 'coffeelint failed with errors or warnings', @
 
     @push file
     done()
