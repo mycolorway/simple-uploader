@@ -43,9 +43,7 @@ describe 'SimpleUploader', ->
     expect(callback.uploadprogress.called).to.be.false
     expect(callback.uploadsuccess.called).to.be.false
 
-    @server.respond();
+    @server.respond()
 
     expect(callback.uploadprogress.called).to.be.true
     expect(callback.uploadsuccess.called).to.be.true
-
-

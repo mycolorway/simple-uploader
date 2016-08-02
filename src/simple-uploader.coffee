@@ -1,4 +1,4 @@
-class Uploader extends SimpleModule
+class SimpleUploader extends SimpleModule
 
   @count: 0
 
@@ -14,12 +14,12 @@ class Uploader extends SimpleModule
 
   constructor: (opts)->
     super
-    @opts = $.extend {}, Uploader.opts, opts
-    @_locales = $.extend {}, Uploader.locales, @opts.locales
+    @opts = $.extend {}, SimpleUploader.opts, opts
+    @_locales = $.extend {}, SimpleUploader.locales, @opts.locales
 
     @files = [] #files being uploaded
     @queue = [] #files waiting to be uploaded
-    @id = ++ Uploader.count
+    @id = ++ SimpleUploader.count
 
     # upload the files in the queue
     @on 'uploadcomplete', (e, file) =>
@@ -156,6 +156,4 @@ class Uploader extends SimpleModule
     $(window).off '.uploader-' + @id
     $(document).off '.uploader-' + @id
 
-module.exports = Uploader
-
-
+module.exports = SimpleUploader

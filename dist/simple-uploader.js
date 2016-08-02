@@ -1,32 +1,32 @@
 /**
- * simple-uploader v2.0.8
+ * simple-uploader v3.0.0
  * https://github.com/mycolorway/simple-uploader
  *
  * Copyright Mycolorway Design
  * Released under the MIT license
  * https://github.com/mycolorway/simple-uploader/license.html
  *
- * Date: 2016-08-1
+ * Date: 2016-08-2
  */
 ;(function(root, factory) {
   if (typeof module === 'object' && module.exports) {
     module.exports = factory(require('jquery'),require('simple-module'));
   } else {
-    root.SimpleUploader = factory(root.jQuery,root.SimpleUploader);
+    root.SimpleUploader = factory(root.jQuery,root.SimpleModule);
   }
-}(this, function ($,SimpleUploader) {
+}(this, function ($,SimpleModule) {
 var define, module, exports;
 var b = require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"simple-uploader":[function(require,module,exports){
-var Uploader,
+var SimpleUploader,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
-Uploader = (function(superClass) {
-  extend(Uploader, superClass);
+SimpleUploader = (function(superClass) {
+  extend(SimpleUploader, superClass);
 
-  Uploader.count = 0;
+  SimpleUploader.count = 0;
 
-  Uploader.opts = {
+  SimpleUploader.opts = {
     url: '',
     params: null,
     fileKey: 'upload_file',
@@ -34,17 +34,17 @@ Uploader = (function(superClass) {
     locales: null
   };
 
-  Uploader.locales = {
+  SimpleUploader.locales = {
     leaveConfirm: 'Are you sure you want to leave?'
   };
 
-  function Uploader(opts) {
-    Uploader.__super__.constructor.apply(this, arguments);
-    this.opts = $.extend({}, Uploader.opts, opts);
-    this._locales = $.extend({}, Uploader.locales, this.opts.locales);
+  function SimpleUploader(opts) {
+    SimpleUploader.__super__.constructor.apply(this, arguments);
+    this.opts = $.extend({}, SimpleUploader.opts, opts);
+    this._locales = $.extend({}, SimpleUploader.locales, this.opts.locales);
     this.files = [];
     this.queue = [];
-    this.id = ++Uploader.count;
+    this.id = ++SimpleUploader.count;
     this.on('uploadcomplete', (function(_this) {
       return function(e, file) {
         _this.files.splice($.inArray(file, _this.files), 1);
@@ -66,7 +66,7 @@ Uploader = (function(superClass) {
     })(this));
   }
 
-  Uploader.prototype.generateId = (function() {
+  SimpleUploader.prototype.generateId = (function() {
     var id;
     id = 0;
     return function() {
@@ -74,7 +74,7 @@ Uploader = (function(superClass) {
     };
   })();
 
-  Uploader.prototype.upload = function(file, opts) {
+  SimpleUploader.prototype.upload = function(file, opts) {
     var f, i, key, len;
     if (opts == null) {
       opts = {};
@@ -112,7 +112,7 @@ Uploader = (function(superClass) {
     return this.uploading = true;
   };
 
-  Uploader.prototype.getFile = function(fileObj) {
+  SimpleUploader.prototype.getFile = function(fileObj) {
     var name, ref, ref1;
     if (fileObj instanceof window.File || fileObj instanceof window.Blob) {
       name = (ref = fileObj.fileName) != null ? ref : fileObj.name;
@@ -131,7 +131,7 @@ Uploader = (function(superClass) {
     };
   };
 
-  Uploader.prototype._xhrUpload = function(file) {
+  SimpleUploader.prototype._xhrUpload = function(file) {
     var formData, k, ref, v;
     formData = new FormData();
     formData.append(file.fileKey, file.obj);
@@ -192,7 +192,7 @@ Uploader = (function(superClass) {
     });
   };
 
-  Uploader.prototype.cancel = function(file) {
+  SimpleUploader.prototype.cancel = function(file) {
     var f, i, len, ref;
     if (!file.id) {
       ref = this.files;
@@ -211,7 +211,7 @@ Uploader = (function(superClass) {
     return file.xhr = null;
   };
 
-  Uploader.prototype.readImageFile = function(fileObj, callback) {
+  SimpleUploader.prototype.readImageFile = function(fileObj, callback) {
     var fileReader, img;
     if (!$.isFunction(callback)) {
       return;
@@ -234,7 +234,7 @@ Uploader = (function(superClass) {
     }
   };
 
-  Uploader.prototype.destroy = function() {
+  SimpleUploader.prototype.destroy = function() {
     var file, i, len, ref;
     this.queue.length = 0;
     ref = this.files;
@@ -246,11 +246,11 @@ Uploader = (function(superClass) {
     return $(document).off('.uploader-' + this.id);
   };
 
-  return Uploader;
+  return SimpleUploader;
 
 })(SimpleModule);
 
-module.exports = Uploader;
+module.exports = SimpleUploader;
 
 },{}]},{},[]);
 

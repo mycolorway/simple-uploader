@@ -1,6 +1,6 @@
 {
   "name": "simple-uploader",
-  "version": "2.0.8",
+  "version": "3.0.0",
   "homepage": "https://github.com/mycolorway/simple-uploader",
   "authors": [
     "farthinker <farthinker@gmail.com>"
@@ -19,7 +19,7 @@
     "package.json"
   ],
   "dependencies": {
-    "jquery": "^3.0.0",
-    "simple-module": "^3.0.0"
+    "jquery": "~3.0.0",
+    "simple-module": "~3.0.0"
   }
 }

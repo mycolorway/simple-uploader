@@ -1,6 +1,7 @@
 
+## V3.0.0
 
-## V2.1.0 
+* Upgrade dependencies to simple-module 3.0 and jQuery 3.0.
 
 
 ## Older Versions
