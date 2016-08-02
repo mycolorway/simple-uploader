@@ -1,5 +1,5 @@
 
-## V3.0.0
+## V3.0.0 - 2016-08-02
 
 * Upgrade dependencies to simple-module 3.0 and jQuery 3.1.
 * Cancle uploading will remove corresponding file in files array.
